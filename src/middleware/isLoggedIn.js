@@ -6,7 +6,7 @@ const isLoggedIn = (req, res, next) => {
       console.log(err);
     }
     if (!user) {
-      res.json({ message: "Invalid Credentials" });
+      res.json({ error: true, message: "Invalid Credentials" });
     }
     if (user) {
       next();

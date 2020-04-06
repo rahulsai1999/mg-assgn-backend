@@ -11,7 +11,8 @@ const RegisterUser = (req, res) => {
   let { name, username, password } = req.body;
   User.find({ username: username }, (err, old_user) => {
     if (err) console.log(err);
-    if (old_user.length != 0) res.json({ message: "User already exists" });
+    if (old_user.length != 0)
+      res.json({ error: true, message: "User already exists" });
     else {
       User.register(
         new User({
@@ -24,7 +25,8 @@ const RegisterUser = (req, res) => {
         password,
         (err, user) => {
           if (err) console.log(err);
-          else res.json({ message: "User Registered", data: user });
+          else
+            res.json({ error: false, message: "User Registered", data: user });
         }
       );
     }
@@ -34,7 +36,7 @@ const RegisterUser = (req, res) => {
 const LoginUser = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
-    if (!user) return res.json({ error: "Invalid Credentials" });
+    if (!user) return res.json({ error: true, token: "Invalid Credentials" });
     if (user) {
       if (user.loginEnabled) {
         const token = jwt.sign(
@@ -42,9 +44,12 @@ const LoginUser = (req, res, next) => {
           secret
         );
         User.findByIdAndUpdate(user._id, { last_login: moment().valueOf() });
-        return res.json({ token: token });
+        return res.json({ error: false, token: token });
       } else {
-        return res.json({ message: "Login Disabled; Contact Admin" });
+        return res.json({
+          error: true,
+          token: "Login Disabled; Contact Admin",
+        });
       }
     }
   })(req, res, next);

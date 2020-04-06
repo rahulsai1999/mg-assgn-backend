@@ -10,7 +10,11 @@ const getDash = (req, res) => {
       User.find({ admin: false }, (err, found) => {
         if (err) console.log(err);
         else {
-          res.json({ message: "Users retrieved", data: found });
+          res.json({
+            admin: user.admin,
+            message: "Users retrieved",
+            data: found,
+          });
         }
       });
     } else {
