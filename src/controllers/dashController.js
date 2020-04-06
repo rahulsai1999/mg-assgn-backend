@@ -45,7 +45,7 @@ const enableUser = (req, res) => {
     if (user.admin) {
       User.findByIdAndUpdate(id, { loginEnabled: true }, (err, user) => {
         if (err) console.log(err);
-        else res.json({ message: `Login for user ${id} emabled` });
+        else res.json({ message: `Login for user ${id} enabled` });
       });
     } else {
       res.json({ message: "Admin only" });
