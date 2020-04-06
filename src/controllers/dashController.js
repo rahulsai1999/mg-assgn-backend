@@ -11,6 +11,7 @@ const getDash = (req, res) => {
         if (err) console.log(err);
         else {
           res.json({
+            error: false,
             admin: user.admin,
             message: "Users retrieved",
             data: found,
@@ -18,7 +19,7 @@ const getDash = (req, res) => {
         }
       });
     } else {
-      res.json({ message: "User retrieved", data: user });
+      res.json({ error: false, message: "User retrieved", data: user });
     }
   });
 };
