@@ -43,7 +43,14 @@ const LoginUser = (req, res, next) => {
           { id: user._id, username: user.username },
           secret
         );
-        User.findByIdAndUpdate(user._id, { last_login: moment().valueOf() });
+        User.findByIdAndUpdate(
+          user._id,
+          { last_login: moment().valueOf() },
+          (err, result) => {
+            if (err) console.log(err);
+            else console.log(result);
+          }
+        );
         return res.json({ error: false, token: token });
       } else {
         return res.json({

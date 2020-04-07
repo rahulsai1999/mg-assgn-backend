@@ -33,7 +33,7 @@ app.use(morgan("dev"));
 
 mongoose.connect(
   `mongodb://${dbuser}:${dbpass}@${dburl}`,
-  { useNewUrlParser: true, useFindAndModify: true },
+  { useNewUrlParser: true, useFindAndModify: false },
   (err) => {
     err ? console.log(err) : console.log("Connected to Database");
   }
