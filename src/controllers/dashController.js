@@ -58,4 +58,17 @@ const enableUser = (req, res) => {
   });
 };
 
-export { getDash, disableUser, enableUser };
+const checkAdmin = (req, res) => {
+  const x = extractid(req.headers);
+  const { id } = x.body;
+  User.findOne({ _id: id }, (err, user) => {
+    if (err) console.log(err);
+    if (user.admin) {
+      res.json({ error: false, admin: true });
+    } else {
+      res.json({ error: false, admin: false });
+    }
+  });
+};
+
+export { getDash, disableUser, enableUser, checkAdmin };

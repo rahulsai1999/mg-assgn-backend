@@ -5,6 +5,7 @@ import {
   getDash,
   disableUser,
   enableUser,
+  checkAdmin,
 } from "../controllers/dashController";
 
 const router = Router();
@@ -15,5 +16,6 @@ router.post("/login", LoginUser);
 router.get("/dashboard", isLoggedIn, getDash);
 router.put("/disable/:id", isLoggedIn, disableUser);
 router.put("/enable/:id", isLoggedIn, enableUser);
+router.get("/checkadmin", isLoggedIn, checkAdmin);
 
 export default router;
