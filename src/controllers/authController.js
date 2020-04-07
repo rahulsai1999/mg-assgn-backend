@@ -20,7 +20,7 @@ const RegisterUser = (req, res) => {
           username: username,
           admin: false,
           loginEnabled: true,
-          last_login: moment().valueOf(),
+          last_login: 0,
         }),
         password,
         (err, user) => {
